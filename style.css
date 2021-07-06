@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+
+*{
+  box-sizing: border-box;
+}
+
+body {background-color: #fcf8fe;
+font-family: 'Kiwi Maru', serif;
+}
+
+#name, #parent, #classis, #school, #dob, #phone, #address, #submit, #studentimage, #movingfrom, #movingto, #placingdate, #message {
+font-family: 'Kiwi Maru', serif;
+}
+
+.container{
+  max-width:1170px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+ul{
+  list-style: none;
+  padding:0;
+}
+
+.wrapper{
+  box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
+}
+
+.wrapper > *{
+  padding: 1em;
+}
+
+.contact{
+  background:#fcf8fe;
+}
+
+/* FORM STYLES */
+.contact form{
+  display: grid;
+  grid-gap:20px;
+}
+
+.contact form label{
+  display:block;
+}
+
+.contact form p{
+  margin:0;
+}
+
+.contact form button, .contact form input, .contact form textarea{
+  width:100%;
+  padding:1em;
+  border:1px solid #242124;
+  font-size: 18px;
+}
+
+.contact form button{
+  background:#2979ff;
+  border:0;
+  color:#fff;
+  text-transform: uppercase;
+}
+
+.contact form button:hover,.contact form button:focus{
+  background:#ffffff;
+  color:#fff;
+  outline:0;
+  transition: background-color 2s ease-out;
+}
+
+.alert{
+  text-align: center;
+  padding:10px;
+  background:#2979ff;
+  color:#fff;
+  margin-bottom:10px;
+  display:none;
+}
+
+/* LARGE SCREENS */
+@media(min-width:700px){
+  .wrapper{
+    display: grid;
+  }
+}
