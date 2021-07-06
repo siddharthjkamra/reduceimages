@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Resize Images Online - Reduce JPG, PNG, GIF & BMP images</title>
+  <meta name="description" content="Resize a JPG, PNG, GIF or BMP image online. Reduce image size to share it with friends or upload it to your social networks or websites." />
+		<meta name="keywords" content="reduce images, reduce images online, reduce an image, reduce an image online, resize online, resize images online, resize an image, reduce size, image, images, images reducer, images resizer, reduce photos, reduce photos online, reduce a photo, reduce a photo online, resize photos online, resize a photo, reduce file size, improve file size, photo, photos, photos reducer, photos resizer, resize, resizer, reducer, online" />
+  <meta name="author" content="Siddharth Kamra">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/navbar.css">
+</head>
+<body>
+
+<!-- Header -->
+
+<div class="topnav" id="myTopnav">
+<a href="#home" class="active"><img src="images/logo.png" width="100" alt="Reduce Images"></a>
+</div>
+
+  <div class="container" style="padding-top: 15px">
+    <h3>Upload File</h3>
+    <hr>
+    <div id="app" v-cloak>
+      <div class="card bg-light mb-4" @change="change" @dragover="dragover" @drop="drop">
+        <div class="card-body">
+          <div class="p-5 text-center">Drop image here or <label class="text-primary">browse... <input type="file" class="sr-only" id="file" accept="image/*" ref="input"></label></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h4 class="card-header">Options</h4>
+            <div class="card-body">
+              <fieldset class="form-group">
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" name="strict" class="form-check-input" id="inputStrict" v-model="options.strict">
+                  <label class="form-check-label" for="inputStrict">strict</label>
+                </div>
+              </fieldset>
+              <fieldset class="form-group">
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" name="checkOrientation" class="form-check-input" id="inputCheckOrientation" v-model="options.checkOrientation">
+                  <label class="form-check-label" for="inputCheckOrientation">checkOrientation</label>
+                </div>
+              </fieldset>
+              <div class="form-group row">
+                <label for="inputMaxWidth" class="col-5 col-form-label">maxWidth</label>
+                <div class="col-7">
+                  <input type="number" name="maxWidth" class="form-control" id="inputMaxWidth" placeholder="Infinity" v-model.number="options.maxWidth">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputMaxHeight" class="col-5 col-form-label">maxHeight</label>
+                <div class="col-7">
+                  <input type="number" name="maxHeight" class="form-control" id="inputMaxHeight" placeholder="Infinity" v-model.number="options.maxHeight">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputMinWidth" class="col-5 col-form-label">minWidth</label>
+                <div class="col-7">
+                  <input type="number" name="minWidth" class="form-control" id="inputMinWidth" placeholder="0" v-model.number="options.minWidth">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputMinHeight" class="col-5 col-form-label">minHeight</label>
+                <div class="col-7">
+                  <input type="number" name="minHeight" class="form-control" id="inputMinHeight" placeholder="0" v-model.number="options.minHeight">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputWidth" class="col-5 col-form-label">width</label>
+                <div class="col-7">
+                  <input type="number" name="width" class="form-control" id="inputWidth" placeholder="undefined" v-model.number="options.width">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputHeight" class="col-5 col-form-label">height</label>
+                <div class="col-7">
+                  <input type="number" name="height" class="form-control" id="inputHeight" placeholder="undefined" v-model.number="options.height">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputQuality" class="col-5 col-form-label">quality</label>
+                <div class="col-7">
+                  <select class="form-control" name="quality" id="inputQuality" v-model.number="options.quality">
+                    <option value="0">0</option>
+                    <option value="0.1">0.1</option>
+                    <option value="0.2">0.2</option>
+                    <option value="0.3">0.3</option>
+                    <option value="0.4">0.4</option>
+                    <option value="0.5">0.5</option>
+                    <option value="0.6">0.6</option>
+                    <option value="0.7">0.7</option>
+                    <option value="0.8">0.8</option>
+                    <option value="0.9">0.9</option>
+                    <option value="1">1</option>
+                    <option value="">NaN</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputMimeType" class="col-5 col-form-label">mimeType</label>
+                <div class="col-7">
+                  <input type="text" name="mimeType" class="form-control" id="inputMimeType" placeholder="auto" v-model.number="options.mimeType">
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label for="inputConvertSize" class="col-5 col-form-label">convertSize</label>
+                <div class="col-7">
+                  <input type="number" name="convertSize" class="form-control" id="inputConvertSize" placeholder="5000000" v-model.number="options.convertSize">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 mb-4">
+          <div class="card mb-4">
+            <h5 class="card-header d-flex align-items-center justify-content-between">
+              <span>Input image <small class="text-secondary">(original image)</small></span>
+              <a class="btn btn-sm btn-blocks btn-outline-primary" :download="input.name" :href="inputURL" title="Download the compressed image">Download</a>
+            </h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 d-flex mb-3">
+                  <div class="w-100 text-center" v-if="inputURL">
+                    <img class="mw-100" :src="inputURL" :alt="input.name">
+                  </div>
+                  <div v-else class="w-100 bg-light"></div>
+                </div>
+                <div class="col-md-8">
+                  <dl class="row">
+                    <dt class="col-5">lastModified:</dt>
+                    <dd class="col-7">{{ input.lastModified || 'N/A' }}</dd>
+                    <dt class="col-5">lastModifiedDate:</dt>
+                    <dd class="col-7">{{ input.lastModifiedDate || 'N/A' }}</dd>
+                    <dt class="col-5">name:</dt>
+                    <dd class="col-7">{{ input.name || 'N/A' }}</dd>
+                    <dt class="col-5">type:</dt>
+                    <dd class="col-7">{{ input.type || 'N/A' }}</dd>
+                    <dt class="col-5">size:</dt>
+                    <dd class="col-7">{{ input.size | prettySize }}</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h5 class="card-header d-flex align-items-center justify-content-between">
+              <span>Output image <small class="text-secondary">(compressed image)</small></span>
+              <a class="btn btn-sm btn-blocks btn-outline-primary" :download="output.name" :href="outputURL" title="Download the compressed image">Download</a>
+            </h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 d-flex mb-3">
+                  <div class="w-100 text-center" v-if="outputURL">
+                    <img class="mw-100" :src="outputURL" :alt="output.name">
+                  </div>
+                  <div v-else class="w-100 bg-light"></div>
+                </div>
+                <div class="col-md-8">
+                  <dl class="row">
+                    <dt class="col-5">lastModified:</dt>
+                    <dd class="col-7">{{ output.lastModified || 'N/A' }}</dd>
+                    <dt class="col-5">lastModifiedDate:</dt>
+                    <dd class="col-7">{{ output.lastModifiedDate || 'N/A' }}</dd>
+                    <dt class="col-5">name:</dt>
+                    <dd class="col-7">{{ output.name || 'N/A' }}</dd>
+                    <dt class="col-5">type:</dt>
+                    <dd class="col-7">{{ output.type || 'N/A' }}</dd>
+                    <dt class="col-5">size:</dt>
+                    <dd class="col-7">{{ output.size | prettySize }}
+                      <span v-if="output.size">({{ ((1 - (output.size / input.size)) * 100).toFixed(2) }}% off)</span>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" v-if="inputURL && outputURL">
+        <h4 class="card-header">Comparing images</h4>
+        <div class="card-body">
+          <vue-compare-image v-if="inputURL && outputURL" :left-image="inputURL" :left-image-alt="input.name" left-label="Input image" :right-image="outputURL" :right-image-alt="output.name" right-label="Output image"></vue-compare-image>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="heart"></p>
+      <nav class="nav flex-wrap justify-content-center mb-3">
+        <a class="nav-link" href="#">About</a>
+      </nav>
+<p style="text-align:center;">We do not store any data of yours</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/jquery@3/dist/jquery.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@2/dist/vue.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue-compare-image@0.2/dist/vueCompareImage.umd.min.js" crossorigin="anonymous"></script>
+  <script src="js/compressor.js"></script>
+  <script src="js/main.js"></script>
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+</body>
+</html>
